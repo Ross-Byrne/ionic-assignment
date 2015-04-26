@@ -1,4 +1,4 @@
-angular.module('Calorie Counter', ['ionic', 'starter.controllers'])
+angular.module('Calorie Counter', ['ionic', 'Calorie Counter.controllers'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -26,7 +26,8 @@ angular.module('Calorie Counter', ['ionic', 'starter.controllers'])
     url: "/home",
     views: {
       'menuContent': {
-        templateUrl: "templates/home.html"
+        templateUrl: "templates/home.html",
+		controller: 'HomeCtrl'
       }
     }
   })
