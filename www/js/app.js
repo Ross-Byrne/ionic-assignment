@@ -1,4 +1,4 @@
-angular.module('Calorie Counter', ['ionic', 'Calorie Counter.controllers'])
+angular.module('Calorie Counter', ['ionic', 'Calorie Counter.controllers', 'Calorie Counter.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

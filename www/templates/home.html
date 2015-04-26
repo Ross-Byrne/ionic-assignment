@@ -1,5 +1,8 @@
 <ion-view view-title="Home">
-	<ion-content>
-		<h1 style="font-size: 26px">Welcome Back, {{firstName + " " + lastName}}.</h1>
-	</ion-content>
+		<ion-content>
+		<h1 style="font-size: 26px">Welcome Back, {{user.firstName + " " + user.lastName}}.</h>
+				
+		<button ng-click="hello()">Click</button>
+				
+		</ion-content>
 </ion-view>
