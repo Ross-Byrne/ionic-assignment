@@ -36,7 +36,8 @@ angular.module('Calorie Counter', ['ionic', 'Calorie Counter.controllers', 'Calo
     url: "/settings",
     views: {
 			'menuContent': {
-				templateUrl: "templates/settings.html"
+				templateUrl: "templates/settings.html",
+				controller: 'SettingsCtrl'
       }
     }
   });
