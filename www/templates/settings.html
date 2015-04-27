@@ -1,17 +1,33 @@
 <ion-view view-title="Settings">
-  <ion-content>
-    <p>User name: {{user.firstName + " " + user.lastName}}</p>
+	<ion-content>
+		<!-- Displaying Users Current Details -->
+		<div class="item item-divider"> 
+          Name: {{user.firstName + " " + user.lastName}}
+	  	</div>
 		
-		<form novalidate>
-    	First Name:<br>
-    	<input type="text" ng-model="user.firstName"><br>
-			
-    	Last Name:<br>
-    	<input type="text" ng-model="user.lastName">
-    	<br><br>
-			
-    	<button ng-click="updateName()">Update</button>
-  </form>
+		<div class="list">
+			<!-- Input for Users First Name -->
+  			<label class="item item-input item-floating-label">
+    			<span class="input-label">First Name</span>
+    			<input type="text" placeholder="First Name" ng-model="user.firstName">
+  			</label>
+			<!-- Input for Users Last Name -->
+  			<label class="item item-input item-floating-label" >
+    			<span class="input-label">Last Name</span>
+    			<input type="text" placeholder="Last Name" ng-model="user.lastName">
+  			</label>
+		</div>
+		<!-- Users Gender -->
+		<div class="item item-divider"> 
+          Gender: {{user.gender}}
+	  	</div>
+		<ion-radio ng-model="user.gender" ng-value="'Male'">Male</ion-radio>
+		<ion-radio ng-model="user.gender" ng-value="'Female'">Female</ion-radio>
+	  
+	  <!-- Submit button to update details -->
+		<button class="button button-full button-positive" ng-click="updateDetails()">
+			Update Details
+		</button>
 		
-  </ion-content>
+	</ion-content>
 </ion-view>

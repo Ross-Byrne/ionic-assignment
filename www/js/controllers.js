@@ -8,52 +8,46 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 	// default values for user
 	$scope.user = {
 		firstName: "Default",
-		lastName: "User"
+		lastName: "User",
+		gender: "Default"
 	};
 	
 	// functions to be fired when the view is the active view
-	$scope.$on("$ionicView.beforeEnter", function(){
+	$scope.$on("$ionicView.enter", function(){
   
 		// load user details
 		if($localstorage.getObject('user') != null){
 			$scope.user = $localstorage.getObject('user');
 		} // if
-		
-		//alert("h");
 	});
 	
-	// example of saving single string
-	//$localstorage.set('name', 'Max');
-	
-	// test function
-	$scope.displayName = function(){ 
-		// example of loading saved string
-  	//alert($localstorage.get('name'));
-			
-		// example of saving object
-		$localstorage.setObject('user', $scope.user);
-
-  var post = $localstorage.getObject('user');
-  alert(post.firstName + " " + post.lastName);
-	};	
-		
-})
+}) // HomeCtrl
 
 // controller for settings page
 .controller('SettingsCtrl', function($scope, $localstorage) {
 	
-	$scope.user = $localstorage.getObject('user');
-	
+	// functions to be fired when the view is entered
+	$scope.$on("$ionicView.enter", function(){
+  
+		// load user details
+		$scope.user = $localstorage.getObject('user');
+		
+		/*if(user.gender == "Male"){
+			
+		} // if*/
+	});
+
 	// function to update user's name
-	$scope.updateName = function(){
-		// update user name
-		$localstorage.setObject('user', $scope.user);
-		
-		// display message showing new name
-		var post = $localstorage.getObject('user');
-  	alert(post.firstName + " " + post.lastName);
-	}; // update
-		
-});
+	$scope.updateDetails = function(){  
+	  	// save users deatails
+	  	$localstorage.setObject('user', $scope.user);
+	 }; // updateDetails()
+	
+	// functions to be fired when the view exits
+  	$scope.$on("$ionicView.beforeLeave", function(){
+     
+	});
+   
+}); // SettingsCtrl
 
    	
