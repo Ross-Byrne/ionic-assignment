@@ -1,34 +1,44 @@
+<!-- 	
+		This is the settings page for the app.
+		On this page the user can add/update their information.
+		Tags "ng-show()" are for showing controls for editing 
+		user information when the "Edit" button is pressed. 
+		Tags "ng-hide()" are for hiding display elements for 
+		showing user info, when the "Edit" button is pressed 
+-->
+
 <ion-view view-title="Settings">
 	
+	<!-- Edit button in top right corner for enabling the editing of user info -->
 	<ion-nav-buttons side="right">
-        <button class="button button-clear" ng-disabled="edit" ng-click="editUserDetails()">
+        <button class="button button-clear" ng-click="editUserDetails()" ng-disabled="edit" >
 			  Edit
         </button>
       </ion-nav-buttons>
 	
 	<ion-content>
 		<!-- Displaying Users Current Details -->
-		<div class="item item-divider"> 
+		<div class="item item-divider" ng-hide="edit"> 
           <span style="font-size: 100%">User Details</span>
 	  	</div>
 		
+		<!-- Display user's information for viewing -->
 		<ul class="list" ng-hide="edit">
     		<li class="item">
 				<b>First Name:</b> <span style="font-size: 90%">{{user.firstName}}</span>
     		</li>
-			
 			<li class="item">
 				<b>Last Name:</b> <span style="font-size: 90%">{{user.lastName}}</span>
     		</li>
-			
 			<li class="item">
 				<b>Gender:</b> <span style="font-size: 90%">{{user.gender}}</span>
     		</li>
 		</ul>
 		
 		<div class="list" ng-show="edit">
+			<!-- User's Name -->
 			<div class="item item-divider"> 
-          	<span style="font-size: 100%">Name:</span> {{user.firstName + " " + user.lastName}}
+				Name: <span style="font-size: 90%">{{user.firstName + " " + user.lastName}}</span>
 	  		</div>
 			
 			<!-- Input for Users First Name -->
@@ -36,28 +46,27 @@
     			<span class="input-label">First Name</span>
     			<input type="text" placeholder="First Name" ng-model="user.firstName">
   			</label>
+			
 			<!-- Input for Users Last Name -->
   			<label class="item item-input item-floating-label" >
     			<span class="input-label">Last Name</span>
     			<input type="text" placeholder="Last Name" ng-model="user.lastName">
   			</label>
 			
-			<!-- Users Gender -->
+			<!-- User's Gender -->
 			<div class="item item-divider" ng-show="edit"> 
-          	Gender: {{user.gender}}
+				Gender: <span style="font-size: 90%">{{user.gender}}</span>
 	  		</div>
+			<!-- Radio buttons for selecting users gender -->
 			<ion-radio ng-model="user.gender" ng-value="'Male'">Male</ion-radio>
 			<ion-radio ng-model="user.gender" ng-value="'Female'">Female</ion-radio>
 	  
 			<!-- Submit button to update details -->
-		<div style="padding: 1%" ng-show="edit">
-			<button class="button button-full button-positive" ng-click="updateDetails()">
-			Update Details
-			</button>
+			<div style="padding: 1%" ng-show="edit">
+				<button class="button button-full button-positive" ng-click="updateDetails()">
+					Update Details
+				</button>
+			</div>
 		</div>
-			
-		</div>
-		
-		
 	</ion-content>
 </ion-view>
