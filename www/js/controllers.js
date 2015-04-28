@@ -25,22 +25,29 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 
 // controller for settings page
 .controller('SettingsCtrl', function($scope, $localstorage) {
+	// variables
+	$scope.edit = false;
 	
 	// functions to be fired when the view is entered
-	$scope.$on("$ionicView.enter", function(){
+	$scope.$on("$ionicView.afterEnter", function(){
   
 		// load user details
 		$scope.user = $localstorage.getObject('user');
-		
-		/*if(user.gender == "Male"){
-			
-		} // if*/
 	});
+	
+	//function to enable updating users details
+	$scope.editUserDetails = function(){
+		// disables display and enables editing
+		$scope.edit = true;
+	} // editUserDetails()
 
 	// function to update user's name
 	$scope.updateDetails = function(){  
 	  	// save users deatails
 	  	$localstorage.setObject('user', $scope.user);
+		
+		// disables editing
+		$scope.edit = false;
 	 }; // updateDetails()
 	
 	// functions to be fired when the view exits

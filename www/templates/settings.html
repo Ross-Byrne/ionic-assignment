@@ -1,11 +1,36 @@
 <ion-view view-title="Settings">
+	
+	<ion-nav-buttons side="right">
+        <button class="button button-clear" ng-disabled="edit" ng-click="editUserDetails()">
+			  Edit
+        </button>
+      </ion-nav-buttons>
+	
 	<ion-content>
 		<!-- Displaying Users Current Details -->
 		<div class="item item-divider"> 
-          Name: {{user.firstName + " " + user.lastName}}
+          <span style="font-size: 100%">User Details</span>
 	  	</div>
 		
-		<div class="list">
+		<ul class="list" ng-hide="edit">
+    		<li class="item">
+				<b>First Name:</b> <span style="font-size: 90%">{{user.firstName}}</span>
+    		</li>
+			
+			<li class="item">
+				<b>Last Name:</b> <span style="font-size: 90%">{{user.lastName}}</span>
+    		</li>
+			
+			<li class="item">
+				<b>Gender:</b> <span style="font-size: 90%">{{user.gender}}</span>
+    		</li>
+		</ul>
+		
+		<div class="list" ng-show="edit">
+			<div class="item item-divider"> 
+          	<span style="font-size: 100%">Name:</span> {{user.firstName + " " + user.lastName}}
+	  		</div>
+			
 			<!-- Input for Users First Name -->
   			<label class="item item-input item-floating-label">
     			<span class="input-label">First Name</span>
@@ -16,18 +41,23 @@
     			<span class="input-label">Last Name</span>
     			<input type="text" placeholder="Last Name" ng-model="user.lastName">
   			</label>
-		</div>
-		<!-- Users Gender -->
-		<div class="item item-divider"> 
-          Gender: {{user.gender}}
-	  	</div>
-		<ion-radio ng-model="user.gender" ng-value="'Male'">Male</ion-radio>
-		<ion-radio ng-model="user.gender" ng-value="'Female'">Female</ion-radio>
+			
+			<!-- Users Gender -->
+			<div class="item item-divider" ng-show="edit"> 
+          	Gender: {{user.gender}}
+	  		</div>
+			<ion-radio ng-model="user.gender" ng-value="'Male'">Male</ion-radio>
+			<ion-radio ng-model="user.gender" ng-value="'Female'">Female</ion-radio>
 	  
-	  <!-- Submit button to update details -->
-		<button class="button button-full button-positive" ng-click="updateDetails()">
+			<!-- Submit button to update details -->
+		<div style="padding: 1%" ng-show="edit">
+			<button class="button button-full button-positive" ng-click="updateDetails()">
 			Update Details
-		</button>
+			</button>
+		</div>
+			
+		</div>
+		
 		
 	</ion-content>
 </ion-view>
