@@ -9,7 +9,13 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 	$scope.user = {
 		firstName: "Default",
 		lastName: "User",
-		gender: "Default"
+		gender: "Default",
+		weightKG: 0,
+		heightCM: 0,
+		ageInYears: 0,
+		BMR: 0,
+		activityLevel: 0,
+		dailyCals: 0
 	};
 	
 	// functions to be fired when the view is the active view
@@ -43,6 +49,32 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 
 	// function to update user's name
 	$scope.updateDetails = function(){  
+		$scope.user.weightKG = 62;
+		$scope.user.heightCM = 170;
+		$scope.user.ageInYears = 20;
+		$scope.user.activityLevel = 1.2;
+		// calculate personal basal metabolic rate / BMR
+		// for women
+		if($scope.user.gender == "Female"){
+			$scope.user.BMR = ((9.6 * $scope.user.weightKG) +
+				(1.8 * $scope.user.heightCM) -
+				(4.7 * $scope.user.ageInYears) + 655);
+		} // if
+		
+		// for men
+		if($scope.user.gender == "Male"){
+			$scope.user.BMR = ((13.7 * $scope.user.weightKG) +
+				(5 * $scope.user.heightCM) -
+				(6.8 * $scope.user.ageInYears) + 66);
+		} // if
+		
+		// calculate daily calorie needs based on 
+		// user BMR and activity level
+		
+		$scope.user.dailyCals = ($scope.user.BMR * $scope.user.activityLevel);
+		
+		
+		
 	  	// save users deatails
 	  	$localstorage.setObject('user', $scope.user);
 		
