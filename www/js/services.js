@@ -26,7 +26,7 @@ angular.module('Calorie Counter.services', [])
 		
 		// deletes all values from local storage
 		deleteAll: function() {
-			$window.localStorage.clear();
+			$window.location = '/';
 		}
 	}
 }]);

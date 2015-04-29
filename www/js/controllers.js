@@ -18,7 +18,7 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 	};
 	
 	// functions to be fired when the view is the active view
-	$scope.$on("$ionicView.enter", function(){
+	$scope.$on("$ionicView.afterEnter", function(){
   
 		// load user details if they are there
 		if($localstorage.getObject('user') != null){
@@ -50,7 +50,7 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 	};
 	
 	// functions to be fired when the view is entered
-	$scope.$on("$ionicView.enter", function(){
+	$scope.$on("$ionicView.beforeEnter", function(){
   
 		// load user details if they are there
 		if($localstorage.getObject('user') != null){
@@ -95,7 +95,7 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 }) // UpdateCtrl
 
 // controller for settings page
-.controller('SettingsCtrl', function($scope, $localstorage, $ionicPopup, $window) {
+.controller('SettingsCtrl', function($scope, $localstorage, $ionicPopup, $state, $ionicHistory) {
 	// variables
 	// default values for user
 	$scope.user = {
@@ -111,14 +111,13 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 	};
 	
 	// functions to be fired when the view is entered
-	$scope.$on("$ionicView.afterEnter", function(){
-  
+	$scope.$on("$ionicView.enter", function(){
+ 
 		// load user details if they are there
 		if($localstorage.getObject('user') != null){
 			$scope.user = $localstorage.getObject('user');
 		}
 		else{ // otherwise save defaults
-			
 			// save default values
 			$localstorage.setObject('user', $scope.user);
 		} // if
@@ -134,7 +133,8 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
      		if(res) { // if yes
 				// delete all user information
        		$localstorage.deleteAll();
-				$window.location.reload(true);
+				
+			
      		} else { // if no
 				// dont delete information
      		} // if
