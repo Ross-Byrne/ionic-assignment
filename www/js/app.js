@@ -31,10 +31,20 @@ angular.module('Calorie Counter', ['ionic', 'Calorie Counter.controllers', 'Calo
 			}
 		}
 	})
+	
+	.state('app.updateDetails', {
+		url: "/updateDetails",
+		views: {
+			'menuContent': {
+				templateUrl: "templates/updateDetails.html",
+				controller: 'UpdateCtrl'
+			}
+		}
+	})
 
   .state('app.settings', {
-    url: "/settings",
-    views: {
+		url: "/settings",
+    	views: {
 			'menuContent': {
 				templateUrl: "templates/settings.html",
 				controller: 'SettingsCtrl'

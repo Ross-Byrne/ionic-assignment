@@ -22,6 +22,11 @@ angular.module('Calorie Counter.services', [])
 		// loading an object from local storage
 		getObject: function(key) {
 			return JSON.parse($window.localStorage[key] || null);
+		},
+		
+		// deletes all values from local storage
+		deleteAll: function() {
+			$window.localStorage.clear();
 		}
 	}
 }]);

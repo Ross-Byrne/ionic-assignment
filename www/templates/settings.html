@@ -1,17 +1,14 @@
 <!-- 	
 		This is the settings page for the app.
-		On this page the user can add/update their information.
-		Tags "ng-show()" are for showing controls for editing 
-		user information when the "Edit" button is pressed. 
-		Tags "ng-hide()" are for hiding display elements for 
-		showing user info, when the "Edit" button is pressed 
+		On this page the user can view their
+		current details and select to edit them.
 -->
 
 <ion-view view-title="Settings">
 	
 	<!-- Edit button in top right corner for enabling the editing of user info -->
 	<ion-nav-buttons side="right">
-        <button class="button button-clear" ng-click="editUserDetails()" ng-disabled="edit" >
+        <button class="button button-clear" ui-sref="app.updateDetails">
 			  Edit
         </button>
       </ion-nav-buttons>
@@ -35,38 +32,12 @@
     		</li>
 		</ul>
 		
-		<div class="list" ng-show="edit">
-			<!-- User's Name -->
-			<div class="item item-divider"> 
-				Name: <span style="font-size: 90%">{{user.firstName + " " + user.lastName}}</span>
-	  		</div>
-			
-			<!-- Input for Users First Name -->
-  			<label class="item item-input item-floating-label">
-    			<span class="input-label">First Name</span>
-    			<input type="text" placeholder="First Name" ng-model="user.firstName">
-  			</label>
-			
-			<!-- Input for Users Last Name -->
-  			<label class="item item-input item-floating-label" >
-    			<span class="input-label">Last Name</span>
-    			<input type="text" placeholder="Last Name" ng-model="user.lastName">
-  			</label>
-			
-			<!-- User's Gender -->
-			<div class="item item-divider" ng-show="edit"> 
-				Gender: <span style="font-size: 90%">{{user.gender}}</span>
-	  		</div>
-			<!-- Radio buttons for selecting users gender -->
-			<ion-radio ng-model="user.gender" ng-value="'Male'">Male</ion-radio>
-			<ion-radio ng-model="user.gender" ng-value="'Female'">Female</ion-radio>
-	  
-			<!-- Submit button to update details -->
-			<div style="padding: 1%" ng-show="edit">
-				<button class="button button-full button-positive" ng-click="updateDetails()">
-					Update Details
-				</button>
-			</div>
+		<!-- Delete button to delete all user information -->
+		<div style="padding: 1%">
+			<button class="button button-full button-positive" ng-click="showConfirm()">
+				Delete All User Details
+			</button>
 		</div>
+		
 	</ion-content>
 </ion-view>

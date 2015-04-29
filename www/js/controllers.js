@@ -4,7 +4,6 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 .controller('HomeCtrl', function($scope, $localstorage) {
 	
 	// variables
-	
 	// default values for user
 	$scope.user = {
 		firstName: "Default",
@@ -21,32 +20,49 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 	// functions to be fired when the view is the active view
 	$scope.$on("$ionicView.enter", function(){
   
-		// load user details
+		// load user details if they are there
 		if($localstorage.getObject('user') != null){
 			$scope.user = $localstorage.getObject('user');
+		}
+		else{ // otherwise save defaults
+			
+			// save default values
+			$localstorage.setObject('user', $scope.user);
 		} // if
 	});
 	
 }) // HomeCtrl
 
-// controller for settings page
-.controller('SettingsCtrl', function($scope, $localstorage) {
+// controller for updating user settings
+.controller('UpdateCtrl', function($scope, $localstorage) {
 	// variables
-	$scope.edit = false;
+	// default values for user
+	$scope.user = {
+		firstName: "Default",
+		lastName: "User",
+		gender: "Default",
+		weightKG: 0,
+		heightCM: 0,
+		ageInYears: 0,
+		BMR: 0,
+		activityLevel: 0,
+		dailyCals: 0
+	};
 	
 	// functions to be fired when the view is entered
-	$scope.$on("$ionicView.afterEnter", function(){
+	$scope.$on("$ionicView.enter", function(){
   
-		// load user details
-		$scope.user = $localstorage.getObject('user');
+		// load user details if they are there
+		if($localstorage.getObject('user') != null){
+			$scope.user = $localstorage.getObject('user');
+		}
+		else{ // otherwise save defaults
+			
+			// save default values
+			$localstorage.setObject('user', $scope.user);
+		} // if
 	});
 	
-	//function to enable updating users details
-	$scope.editUserDetails = function(){
-		// disables display and enables editing
-		$scope.edit = true;
-	} // editUserDetails()
-
 	// function to update user's name
 	$scope.updateDetails = function(){  
 		$scope.user.weightKG = 62;
@@ -70,22 +86,60 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 		
 		// calculate daily calorie needs based on 
 		// user BMR and activity level
-		
 		$scope.user.dailyCals = ($scope.user.BMR * $scope.user.activityLevel);
-		
-		
 		
 	  	// save users deatails
 	  	$localstorage.setObject('user', $scope.user);
-		
-		// disables editing
-		$scope.edit = false;
 	 }; // updateDetails()
 	
-	// functions to be fired when the view exits
-  	$scope.$on("$ionicView.beforeLeave", function(){
-     
+}) // UpdateCtrl
+
+// controller for settings page
+.controller('SettingsCtrl', function($scope, $localstorage, $ionicPopup, $window) {
+	// variables
+	// default values for user
+	$scope.user = {
+		firstName: "Default",
+		lastName: "User",
+		gender: "Default",
+		weightKG: 0,
+		heightCM: 0,
+		ageInYears: 0,
+		BMR: 0,
+		activityLevel: 0,
+		dailyCals: 0
+	};
+	
+	// functions to be fired when the view is entered
+	$scope.$on("$ionicView.afterEnter", function(){
+  
+		// load user details if they are there
+		if($localstorage.getObject('user') != null){
+			$scope.user = $localstorage.getObject('user');
+		}
+		else{ // otherwise save defaults
+			
+			// save default values
+			$localstorage.setObject('user', $scope.user);
+		} // if
 	});
+	
+	// confirm delete all user info
+ 	$scope.showConfirm = function() {
+   	var confirmPopup = $ionicPopup.confirm({
+     		title: 'Delete All User Information',
+     		template: 'Are you sure you want to delete all user information?'
+   	}); // confirmPopup()
+   	confirmPopup.then(function(res) {
+     		if(res) { // if yes
+				// delete all user information
+       		$localstorage.deleteAll();
+				$window.location.reload(true);
+     		} else { // if no
+				// dont delete information
+     		} // if
+   	});
+ 	}; // showConfirm()
    
 }); // SettingsCtrl
 
