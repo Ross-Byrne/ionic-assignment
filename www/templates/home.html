@@ -1,14 +1,17 @@
 <ion-view  view-title="Home">
 	<ion-content>
 		<div class="item item-divider"> 
-			Hello, {{user.firstName + " " + user.lastName}}.
+			Hello, {{user.name}}.
 		</div>
 	
 		<!-- Display user's daily calorie needs -->
 		<ul class="list">
 			<li class="item">
-				<b>Calories:</b> {{user.calsConsumed}} / {{user.dailyCals}}
+				<b>Your Calories:</b> {{user.calsConsumed}} / {{user.dailyCals}}
     		</li>
+			<div class="item item-divider"> 
+				Calorie Breakdown:
+			</div>
     		<li class="item">
 				<b>Your Daily Calorie Needs:</b> {{user.dailyCals}}
     		</li>

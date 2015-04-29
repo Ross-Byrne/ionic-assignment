@@ -15,21 +15,15 @@
 	
 	<ion-content>	
 		<div class="list">
+			
 			<!-- User's Name -->
 			<div class="item item-divider"> 
-				Name: <span style="font-size: 90%">{{user.firstName + " " + user.lastName}}</span>
+				Name: <span style="font-size: 90%">{{user.name}}</span>
 	  		</div>
-			
-			<!-- Input for Users First Name -->
-  			<label class="item item-input item-floating-label">
-    			<span class="input-label">First Name</span>
-    			<input type="text" placeholder="First Name" ng-model="user.firstName">
-  			</label>
-			
-			<!-- Input for Users Last Name -->
-  			<label class="item item-input item-floating-label" >
-    			<span class="input-label">Last Name</span>
-    			<input type="text" placeholder="Last Name" ng-model="user.lastName">
+			<!-- Input for Users Name -->
+  			<label class="item item-input item-stacked-label">
+    			<span class="input-label">Name</span>
+    			<input type="text" placeholder="Name" ng-model="user.name">
   			</label>
 			
 			<!-- User's Gender -->
@@ -39,6 +33,37 @@
 			<!-- Radio buttons for selecting users gender -->
 			<ion-radio ng-model="user.gender" ng-value="'Male'">Male</ion-radio>
 			<ion-radio ng-model="user.gender" ng-value="'Female'">Female</ion-radio>
+			
+			<!-- Weight in KG -->
+			<div class="item item-divider"> 
+				Weight In KG: <span style="font-size: 90%">{{user.weightKG}}</span>
+	  		</div>
+			<!-- Input for Users weight in KG -->
+  			<label class="item item-input" >
+    			<input type="number" placeholder="Weight In KG" ng-model="user.weightKG">
+  			</label>
+			
+			<!-- Height in CM -->
+			<div class="item item-divider"> 
+				Height In CM: <span style="font-size: 90%">{{user.heightCM}}</span>
+	  		</div>
+			<!-- Input for Users Height in CM -->
+  			<label class="item item-input" >
+    			<input type="number" placeholder="Height In CM" ng-model="user.heightCM">
+  			</label>
+			
+			<!-- Age in years -->
+			<div class="item item-divider"> 
+				Age In Years: <span style="font-size: 90%">{{user.ageInYears}}</span>
+	  		</div>
+			<!-- Input for Users Age in years -->
+  			<label class="item item-input">
+    			<input type="number" placeholder="Age In Years" ng-model="user.ageInYears">
+  			</label>
+			
+			<label class="item item-input" ui-sref="app.activityLevel">
+    			Select Activity Level
+  			</label>
 	  
 			<!-- Submit button to update details -->
 			<div style="padding: 1%">

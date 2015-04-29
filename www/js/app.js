@@ -41,6 +41,16 @@ angular.module('Calorie Counter', ['ionic', 'Calorie Counter.controllers', 'Calo
 			}
 		}
 	})
+	
+	.state('app.activityLevel', {
+		url: "/activityLevel",
+		views: {
+			'menuContent': {
+				templateUrl: "templates/activityLevel.html",
+				controller: 'UpdateCtrl'
+			}
+		}
+	})
 
   .state('app.settings', {
 		url: "/settings",

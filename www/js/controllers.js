@@ -6,8 +6,7 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 	// variables
 	// default values for user
 	$scope.user = {
-		firstName: "Default",
-		lastName: "User",
+		name: "Default User",
 		gender: "Default",
 		weightKG: 0,
 		heightCM: 0,
@@ -35,7 +34,7 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 }) // HomeCtrl
 
 // controller for updating user settings
-.controller('UpdateCtrl', function($scope, $localstorage) {
+.controller('UpdateCtrl', function($scope, $localstorage, $ionicHistory) {
 	
 	// functions to be fired when the view is entered
 	$scope.$on("$ionicView.beforeEnter", function(){
@@ -46,10 +45,6 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 	
 	// function to update user's name
 	$scope.updateDetails = function(){  
-		$scope.user.weightKG = 62;
-		$scope.user.heightCM = 170;
-		$scope.user.ageInYears = 20;
-		$scope.user.activityLevel = 1.2;
 		// calculate personal basal metabolic rate / BMR
 		// for women
 		if($scope.user.gender == "Female"){
@@ -71,12 +66,21 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 		
 	  	// save users deatails
 	  	$localstorage.setObject('user', $scope.user);
-	 }; // updateDetails()
+	}; // updateDetails()
+	
+	// to go back to last view
+	$scope.goBack = function(){
+		// save users deatails
+	  	$localstorage.setObject('user', $scope.user);
+		
+  		$ionicHistory.goBack();
+	} // selectActivityLevel()
+	
 	
 }) // UpdateCtrl
 
 // controller for settings page
-.controller('SettingsCtrl', function($scope, $localstorage, $ionicPopup, $state, $ionicHistory) {
+.controller('SettingsCtrl', function($scope, $localstorage, $ionicPopup) {
 
 	// functions to be fired when the view is entered
 	$scope.$on("$ionicView.enter", function(){
@@ -95,8 +99,7 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
      		if(res) { // if yes
 				// delete all user information
        		$scope.user = {
-					firstName: "Default",
-					lastName: "User",
+					name: "Default User",
 					gender: "Default",
 					weightKG: 0,
 					heightCM: 0,
