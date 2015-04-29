@@ -14,7 +14,8 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 		ageInYears: 0,
 		BMR: 0,
 		activityLevel: 0,
-		dailyCals: 0
+		dailyCals: 0,
+		calsConsumed: 0
 	};
 	
 	// functions to be fired when the view is the active view
@@ -35,32 +36,12 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 
 // controller for updating user settings
 .controller('UpdateCtrl', function($scope, $localstorage) {
-	// variables
-	// default values for user
-	$scope.user = {
-		firstName: "Default",
-		lastName: "User",
-		gender: "Default",
-		weightKG: 0,
-		heightCM: 0,
-		ageInYears: 0,
-		BMR: 0,
-		activityLevel: 0,
-		dailyCals: 0
-	};
 	
 	// functions to be fired when the view is entered
 	$scope.$on("$ionicView.beforeEnter", function(){
   
-		// load user details if they are there
-		if($localstorage.getObject('user') != null){
-			$scope.user = $localstorage.getObject('user');
-		}
-		else{ // otherwise save defaults
-			
-			// save default values
-			$localstorage.setObject('user', $scope.user);
-		} // if
+		// load user details
+		$scope.user = $localstorage.getObject('user');
 	});
 	
 	// function to update user's name
@@ -86,7 +67,7 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 		
 		// calculate daily calorie needs based on 
 		// user BMR and activity level
-		$scope.user.dailyCals = ($scope.user.BMR * $scope.user.activityLevel);
+		$scope.user.dailyCals = Math.round($scope.user.BMR * $scope.user.activityLevel);
 		
 	  	// save users deatails
 	  	$localstorage.setObject('user', $scope.user);
@@ -96,31 +77,12 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 
 // controller for settings page
 .controller('SettingsCtrl', function($scope, $localstorage, $ionicPopup, $state, $ionicHistory) {
-	// variables
-	// default values for user
-	$scope.user = {
-		firstName: "Default",
-		lastName: "User",
-		gender: "Default",
-		weightKG: 0,
-		heightCM: 0,
-		ageInYears: 0,
-		BMR: 0,
-		activityLevel: 0,
-		dailyCals: 0
-	};
-	
+
 	// functions to be fired when the view is entered
 	$scope.$on("$ionicView.enter", function(){
  
-		// load user details if they are there
-		if($localstorage.getObject('user') != null){
-			$scope.user = $localstorage.getObject('user');
-		}
-		else{ // otherwise save defaults
-			// save default values
-			$localstorage.setObject('user', $scope.user);
-		} // if
+		// load user details
+		$scope.user = $localstorage.getObject('user');
 	});
 	
 	// confirm delete all user info
@@ -132,8 +94,20 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
    	confirmPopup.then(function(res) {
      		if(res) { // if yes
 				// delete all user information
-       		$localstorage.deleteAll();
-				
+       		$scope.user = {
+					firstName: "Default",
+					lastName: "User",
+					gender: "Default",
+					weightKG: 0,
+					heightCM: 0,
+					ageInYears: 0,
+					BMR: 0,
+					activityLevel: 0,
+					dailyCals: 0,
+					calsConsumed: 0	
+				};
+				// save changes
+				$localstorage.setObject('user', $scope.user);
 			
      		} else { // if no
 				// dont delete information
