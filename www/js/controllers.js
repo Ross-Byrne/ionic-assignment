@@ -34,13 +34,15 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 }) // HomeCtrl
 
 // controller for the calories page
-.controller('CalorieCtrl', function($scope, $localstorage, foodItems) {
+.controller('CalorieCtrl', function($scope, $localstorage, $foodItems, $state) {
 	// variables
 	$scope.foodItems = [];
 	
+	//$localstorage.setObject('foodItems', $scope.foodItems);
+	
+	
 	// functions to be fired when the view is the active view
-	$scope.$on("$ionicView.afterEnter", function(){
-  
+	$scope.$on("$ionicView.beforeEnter", function(){
 		// load user details if they are there
 		if($localstorage.getObject('user') != null){
 			$scope.user = $localstorage.getObject('user');
@@ -51,46 +53,30 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 			$localstorage.setObject('user', $scope.user);
 		} // if
 		
-		// load food Items
-		/*if(foodItems.displayAll() != null){
-			$scope.foodItems = foodItems.displayAll();
+		if($localstorage.getObject('foodItems') != null){
+			// load food items from localstorage if they are there
+			$scope.foodItems = $localstorage.getObject('foodItems');
+		} else{
+			// Otherwise save default
+			$localstorage.setObject('foodItems', $scope.foodItems);
 		}
-		else{ // otherwise save defaults
-			
-			// save default values
-			foodItems.save($scope.foodItems);
-		} // if*/
 		
-	});
-	
-	$scope.foodItems.push(foodItems.addNewFood("Bread", 100));
-	$scope.foodItems.push(foodItems.addNewFood("Cheese", 300));
-	$scope.foodItems.push(foodItems.addNewFood("Tea", 10));
-	$scope.foodItems.push(foodItems.addNewFood("Apples", 25));
+	});	
 	
 	$scope.addNewFoodItem = function(name, cals){
 		
-		$scope.foodItems.push(foodItems.addNewFood(name, cals));
-		
-		
+		name = "jam";
+		cals = 90;
+		$scope.foodItems.push({name: "bread", calories: 0});
 	} // addNewFoodItem()
-	
-	
-	$scope.deleteFoodItem = function(i){
-		
-		$scope.foodItems.remove(i);
-	} // deleteFoodItem() 
-	
-	/*$scope.delete = function ( idx ) {
-  		var foodItem_to_delete = $scope.foodItems[idx];
 
-  		API.deleteFoodItem({ id: foodItem_to_delete.id }, function (success) {
-    	$scope.foodItems.splice(idx, 1);
-  });*/
-		
-		
-
+	$scope.saveAndLeave = function(){
+			
+		$localstorage.setObject('foodItems', $scope.foodItems);
+		$state.go('app.home');
+	}
 	
+
 }) // CalorieCtrl
 
 // controller for updating user settings
