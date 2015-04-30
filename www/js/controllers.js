@@ -62,17 +62,22 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 		} // if
 		
 	});
-
-	$scope.foodItems.push({name: "Bread", calories: 100});
+	
+	// function for adding a new food Item
 	$scope.addNewFoodItem = function(){
+		var cals = 100;
+		$scope.user.calsConsumed += cals;
 		
-		$scope.foodItems.push({name: "Bread", calories: 100});
+		$scope.foodItems.push({name: "Bread", calories: cals});
+		
 		
 	} // addNewFoodItem()
 	
+	// function for saving and exiting from the calorie page
 	$scope.saveAndExit = function(){
-		
+	
 		$localstorage.setObject('foodItems', $scope.foodItems);	
+		$localstorage.setObject('user', $scope.user);
 		
 		$ionicHistory.nextViewOptions({
     		disableBack: true
