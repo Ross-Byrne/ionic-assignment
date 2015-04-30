@@ -8,7 +8,7 @@
 	
 	<!-- Add button for adding a new food Item -->
 	<ion-nav-buttons side="right">
-        <button class="button button-clear" ng-click="addNewFoodItem('Bread', 100)">
+        <button class="button button-clear" ng-click="addNewFoodItem()">
 			  Add
         </button>
 	</ion-nav-buttons>
@@ -22,10 +22,17 @@
 		
 		<!-- Display food items -->
 		<ul class="list">
-    		<li class="item" ng-repeat="foodItems in foodItems" ng-click="deleteFoodItem($index)">
-				<b>{{foodItems.name}}</b><br/> <b>Calories:</b> {{foodItems.calories}}
+    		<li class="item" ng-repeat="foodItem in foodItems">
+				<b>{{foodItem.name}}</b><br/> <b>Calories:</b> {{foodItem.calories}}
     		</li>
 		</ul>
+		
+		<!-- Save edited food items -->
+		<div style="padding: 1%">
+			<button class="button button-full button-positive" ng-click="saveAndExit()">
+				Save And Go To Home
+			</button>
+		</div>
 		
 	</ion-content>
 </ion-view>

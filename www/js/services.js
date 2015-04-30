@@ -24,33 +24,4 @@ angular.module('Calorie Counter.services', [])
 			return JSON.parse($window.localStorage[key] || null);
 		}
 	}
-}])
-
-// factory for manging user created food objects
-.factory('foodItems', ['$window', function($window) {
-	return {
-		
-		// create new food item
-		addNewFood: function(foodName, cals){
-			return{
-				name: foodName,
-				calories: cals
-			};
-		},
-		
-		// display all food items
-		displayAll: function(){
-			
-			var foodItems = $window.localStorage['foodItems'] || null;
-			if (foodItems) {
-				return JSON.parse(foodItems);
-			}
-      	return [];	
-		},
-		
-		// saving a food Item to local storage
-		save: function(value) {
-			$window.localStorage['foodItems'] = JSON.stringify(value);
-		}
-	}
 }]);

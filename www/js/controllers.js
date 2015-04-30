@@ -34,12 +34,12 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 }) // HomeCtrl
 
 // controller for the calories page
-.controller('CalorieCtrl', function($scope, $localstorage, foodItems) {
+.controller('CalorieCtrl', function($scope, $localstorage, $state, $ionicHistory ) {
 	// variables
 	$scope.foodItems = [];
 	
 	// functions to be fired when the view is the active view
-	$scope.$on("$ionicView.afterEnter", function(){
+	$scope.$on("$ionicView.beforeEnter", function(){
   
 		// load user details if they are there
 		if($localstorage.getObject('user') != null){
@@ -52,41 +52,35 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 		} // if
 		
 		// load food Items
-		/*if(foodItems.displayAll() != null){
-			$scope.foodItems = foodItems.displayAll();
+		if($localstorage.getObject('foodItems') != null){
+			$scope.foodItems = $localstorage.getObject('foodItems');
 		}
 		else{ // otherwise save defaults
 			
 			// save default values
-			foodItems.save($scope.foodItems);
-		} // if*/
+			$localstorage.setObject('foodItems', $scope.foodItems);
+		} // if
 		
 	});
-	
-	
 
-	$scope.addNewFoodItem = function(name, cals){
+	$scope.foodItems.push({name: "Bread", calories: 100});
+	$scope.addNewFoodItem = function(){
 		
-		$scope.foodItems.push(foodItems.addNewFood(name, cals));
+		$scope.foodItems.push({name: "Bread", calories: 100});
 		
 	} // addNewFoodItem()
 	
-	
-	$scope.deleteFoodItem = function(i){
+	$scope.saveAndExit = function(){
 		
-		$scope.foodItems.remove(i);
-	} // deleteFoodItem() 
-	
-	/*$scope.delete = function ( idx ) {
-  		var foodItem_to_delete = $scope.foodItems[idx];
+		$localstorage.setObject('foodItems', $scope.foodItems);	
+		
+		$ionicHistory.nextViewOptions({
+    		disableBack: true
+  		});
 
-  		API.deleteFoodItem({ id: foodItem_to_delete.id }, function (success) {
-    	$scope.foodItems.splice(idx, 1);
-  });*/
+		$state.go('app.home');
+	} // saveAndExit()
 		
-		
-
-	
 }) // CalorieCtrl
 
 // controller for updating user settings
