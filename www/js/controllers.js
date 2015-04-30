@@ -34,7 +34,9 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 }) // HomeCtrl
 
 // controller for the calories page
-.controller('CalorieCtrl', function($scope, $localstorage) {
+.controller('CalorieCtrl', function($scope, $localstorage, foodItems) {
+	// variables
+	$scope.foodItems = [];
 	
 	// functions to be fired when the view is the active view
 	$scope.$on("$ionicView.afterEnter", function(){
@@ -48,7 +50,46 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 			// save default values
 			$localstorage.setObject('user', $scope.user);
 		} // if
+		
+		// load food Items
+		/*if(foodItems.displayAll() != null){
+			$scope.foodItems = foodItems.displayAll();
+		}
+		else{ // otherwise save defaults
+			
+			// save default values
+			foodItems.save($scope.foodItems);
+		} // if*/
+		
 	});
+	
+	$scope.foodItems.push(foodItems.addNewFood("Bread", 100));
+	$scope.foodItems.push(foodItems.addNewFood("Cheese", 300));
+	$scope.foodItems.push(foodItems.addNewFood("Tea", 10));
+	$scope.foodItems.push(foodItems.addNewFood("Apples", 25));
+	
+	$scope.addNewFoodItem = function(name, cals){
+		
+		$scope.foodItems.push(foodItems.addNewFood(name, cals));
+		
+		
+	} // addNewFoodItem()
+	
+	
+	$scope.deleteFoodItem = function(i){
+		
+		$scope.foodItems.remove(i);
+	} // deleteFoodItem() 
+	
+	/*$scope.delete = function ( idx ) {
+  		var foodItem_to_delete = $scope.foodItems[idx];
+
+  		API.deleteFoodItem({ id: foodItem_to_delete.id }, function (success) {
+    	$scope.foodItems.splice(idx, 1);
+  });*/
+		
+		
+
 	
 }) // CalorieCtrl
 

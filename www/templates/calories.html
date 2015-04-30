@@ -5,7 +5,27 @@
 -->
 
 <ion-view  view-title="Calories">
+	
+	<!-- Add button for adding a new food Item -->
+	<ion-nav-buttons side="right">
+        <button class="button button-clear" ng-click="addNewFoodItem('Jam', 100)">
+			  Add
+        </button>
+	</ion-nav-buttons>
+	
 	<ion-content>
-		<h1>Calorie Stuff!!</h1>
+		
+		<!-- Heading -->
+		<div class="item item-divider"> 
+          <span style="font-size: 100%">Food Items</span>
+	  	</div>
+		
+		<!-- Display food items -->
+		<ul class="list">
+    		<li class="item" ng-repeat="foodItems in foodItems" ng-click="deleteFoodItem($index)">
+				<b>{{foodItems.name}}</b><br/> <b>Calories:</b> {{foodItems.calories}}
+    		</li>
+		</ul>
+		
 	</ion-content>
 </ion-view>
