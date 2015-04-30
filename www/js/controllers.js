@@ -63,11 +63,8 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 		
 	});	
 	
-	$scope.addNewFoodItem = function(name, cals){
-		
-		name = "jam";
-		cals = 90;
-		$scope.foodItems.push({name: "bread", calories: 0});
+	$scope.addNewFoodItem = function(n, cals){
+		$scope.foodItems.push({name: n, calories: cals});
 	} // addNewFoodItem()
 
 	$scope.saveAndLeave = function(){
