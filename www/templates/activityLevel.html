@@ -1,27 +1,31 @@
+<!--
+		Page to let the user select their activity level
+-->
+
 <ion-view view-title="Activity Level">
 	<ion-nav-bar class="bar-positive">
 			Select Your Activity Level
-		</ion-nav-bar>
+	</ion-nav-bar>
 	<ion-content>
 		<!-- Display Activity Levels -->
 		<ion-radio ng-model="user.activityLevel" ng-value="1.2">
-			<p style="word-wrap: normal">Don't exercise or exercise little.</p>
+			<label class="item-text-wrap">{{activityLevels.option1}}</label>
 		</ion-radio>
 		
 		<ion-radio ng-model="user.activityLevel" ng-value="1.375">
-			<p style="word-wrap: normal">Take part in light exercise or sports 1 - 3 days a week.</p>
+			<label class="item-text-wrap">{{activityLevels.option2}}</label>
 		</ion-radio>
 		
 		<ion-radio ng-model="user.activityLevel" ng-value="1.55">
-			<p style="word-wrap: normal">Exercise moderately and/or play sports 3 - 5 days a week.</p>
+			<label class="item-text-wrap">{{activityLevels.option3}}</label>
 		</ion-radio>
 		
 		<ion-radio ng-model="user.activityLevel" ng-value="1.725">
-			<p style="word-wrap: normal">Engage in strenuous sports or hard exercise 6 - 7 days a week.</p>
+			<label class="item-text-wrap">{{activityLevels.option4}}</label>
 		</ion-radio>
 		
 		<ion-radio ng-model="user.activityLevel" ng-value="1.9">
-			<p style="word-wrap: normal">Engage in very physically challenging jobs or exercise, such as 2 a day workouts.</p>
+			<label class="item-text-wrap">{{activityLevels.option5}}</label>
 		</ion-radio>
 		
 		<!-- select Activity Level -->

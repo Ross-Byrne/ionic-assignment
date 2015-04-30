@@ -61,9 +61,13 @@
     			<input type="number" placeholder="Age In Years" ng-model="user.ageInYears">
   			</label>
 			
-			<label class="item item-input" ui-sref="app.activityLevel">
-    			Select Activity Level
-  			</label>
+			<!-- Activity Level -->
+			<div class="item item-divider"> 
+				Activity Level:
+	  		</div>
+			<label class="item item-input item-text-wrap" style="padding-top: 2%; padding-bottom: 2%" ng-click="goToActivityLevel()">
+				Activity Level: {{userActivityLevel}}
+			</label>
 	  
 			<!-- Submit button to update details -->
 			<div style="padding: 1%">
