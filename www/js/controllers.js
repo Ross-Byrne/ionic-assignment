@@ -34,8 +34,9 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 }) // HomeCtrl
 
 // controller for the calories page
-.controller('CalorieCtrl', function($scope, $localstorage, $state, $ionicHistory ) {
+.controller('CalorieCtrl', function($scope, $localstorage, $state, $ionicHistory, $ionicPopup) {
 	// variables
+	// array of food objects 
 	$scope.foodItems = [];
 	
 	// functions to be fired when the view is the active view
@@ -46,7 +47,6 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 			$scope.user = $localstorage.getObject('user');
 		}
 		else{ // otherwise save defaults
-			
 			// save default values
 			$localstorage.setObject('user', $scope.user);
 		} // if
@@ -56,7 +56,6 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 			$scope.foodItems = $localstorage.getObject('foodItems');
 		}
 		else{ // otherwise save defaults
-			
 			// save default values
 			$localstorage.setObject('foodItems', $scope.foodItems);
 		} // if
@@ -64,27 +63,55 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 	});
 	
 	// function for adding a new food Item
+	// Ionic is being buggy, this funtion wont work 
+	// if I try do anymore in it
 	$scope.addNewFoodItem = function(){
 		var cals = 100;
+		// add calories to calsConsumed
 		$scope.user.calsConsumed += cals;
 		
 		$scope.foodItems.push({name: "Bread", calories: cals});
-		
-		
 	} // addNewFoodItem()
 	
 	// function for saving and exiting from the calorie page
 	$scope.saveAndExit = function(){
-	
+		// save user details and food Items
 		$localstorage.setObject('foodItems', $scope.foodItems);	
 		$localstorage.setObject('user', $scope.user);
-		
+		// disable back button when you move 
+		// back to the home page
 		$ionicHistory.nextViewOptions({
     		disableBack: true
   		});
-
+		// go to home page
 		$state.go('app.home');
 	} // saveAndExit()
+	
+	// confirm delete all food items
+ 	$scope.showConfirm = function() {
+   	var confirmPopup = $ionicPopup.confirm({
+     		title: 'Delete All Food Items',
+     		template: 'Are you sure you want to delete all food items?'
+   	}); // confirmPopup()
+   	confirmPopup.then(function(res) {
+     		if(res) { // if yes
+				// get info
+				$scope.foodItems = $localstorage.getObject('foodItems');
+				$scope.user = $localstorage.getObject('user');
+				
+				// emplty food items array and 
+				// reset cals consumed
+				$scope.foodItems = [];
+				$scope.user.calsConsumed = 0;
+				
+				// save changes
+				$localstorage.setObject('foodItems', $scope.foodItems);
+				$localstorage.setObject('user', $scope.user);
+     		} else { // if no
+				// dont delete information
+     		} // if
+   	}); // confirmPopup.then()
+ 	}; // showConfirm()
 		
 }) // CalorieCtrl
 
@@ -242,6 +269,10 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 					calsConsumed: 0	
 				};
 				$scope.userActivityLevel = "Select An Activity Level";
+				// empty foodItems array
+				$scope.foodItems = $localstorage.getObject('foodItems');
+				$scope.foodItems = [];
+				$localstorage.setObject('foodItems', $scope.foodItems);
 				// save changes
 				$localstorage.setObject('user', $scope.user);
      		} else { // if no
