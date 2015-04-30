@@ -27,7 +27,7 @@ angular.module('Calorie Counter.services', [])
 }])
 
 // factory for manging user created food objects
-.factory('$foodItems', ['$window', function($window) {
+.factory('foodItems', ['$window', function($window) {
 	return {
 		
 		// create new food item

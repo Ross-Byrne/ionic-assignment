@@ -22,17 +22,10 @@
 		
 		<!-- Display food items -->
 		<ul class="list">
-    		<li class="item" ng-repeat="foodItem in foodItems">
-				<b>{{foodItem.name}}</b><br/> <b>Calories:</b> {{foodItem.calories}}
+    		<li class="item" ng-repeat="foodItems in foodItems" ng-click="deleteFoodItem($index)">
+				<b>{{foodItems.name}}</b><br/> <b>Calories:</b> {{foodItems.calories}}
     		</li>
 		</ul>
-		
-		<!-- save button to save all food information -->
-		<div style="padding: 1%">
-			<button class="button button-full button-positive" ng-click="saveAndLeave()">
-				Save And Leave
-			</button>
-		</div>
 		
 	</ion-content>
 </ion-view>

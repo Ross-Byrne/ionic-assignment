@@ -34,15 +34,13 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 }) // HomeCtrl
 
 // controller for the calories page
-.controller('CalorieCtrl', function($scope, $localstorage, $foodItems, $state) {
+.controller('CalorieCtrl', function($scope, $localstorage, foodItems) {
 	// variables
 	$scope.foodItems = [];
 	
-	//$localstorage.setObject('foodItems', $scope.foodItems);
-	
-	
 	// functions to be fired when the view is the active view
-	$scope.$on("$ionicView.beforeEnter", function(){
+	$scope.$on("$ionicView.afterEnter", function(){
+  
 		// load user details if they are there
 		if($localstorage.getObject('user') != null){
 			$scope.user = $localstorage.getObject('user');
@@ -53,27 +51,42 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 			$localstorage.setObject('user', $scope.user);
 		} // if
 		
-		if($localstorage.getObject('foodItems') != null){
-			// load food items from localstorage if they are there
-			$scope.foodItems = $localstorage.getObject('foodItems');
-		} else{
-			// Otherwise save default
-			$localstorage.setObject('foodItems', $scope.foodItems);
+		// load food Items
+		/*if(foodItems.displayAll() != null){
+			$scope.foodItems = foodItems.displayAll();
 		}
-		
-	});	
-	
-	$scope.addNewFoodItem = function(n, cals){
-		$scope.foodItems.push({name: n, calories: cals});
-	} // addNewFoodItem()
-
-	$scope.saveAndLeave = function(){
+		else{ // otherwise save defaults
 			
-		$localstorage.setObject('foodItems', $scope.foodItems);
-		$state.go('app.home');
-	}
+			// save default values
+			foodItems.save($scope.foodItems);
+		} // if*/
+		
+	});
+	
 	
 
+	$scope.addNewFoodItem = function(name, cals){
+		
+		$scope.foodItems.push(foodItems.addNewFood(name, cals));
+		
+	} // addNewFoodItem()
+	
+	
+	$scope.deleteFoodItem = function(i){
+		
+		$scope.foodItems.remove(i);
+	} // deleteFoodItem() 
+	
+	/*$scope.delete = function ( idx ) {
+  		var foodItem_to_delete = $scope.foodItems[idx];
+
+  		API.deleteFoodItem({ id: foodItem_to_delete.id }, function (success) {
+    	$scope.foodItems.splice(idx, 1);
+  });*/
+		
+		
+
+	
 }) // CalorieCtrl
 
 // controller for updating user settings
