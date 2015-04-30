@@ -33,6 +33,25 @@ angular.module('Calorie Counter.controllers', ['Calorie Counter.services'])
 	
 }) // HomeCtrl
 
+// controller for the calories page
+.controller('CalorieCtrl', function($scope, $localstorage) {
+	
+	// functions to be fired when the view is the active view
+	$scope.$on("$ionicView.afterEnter", function(){
+  
+		// load user details if they are there
+		if($localstorage.getObject('user') != null){
+			$scope.user = $localstorage.getObject('user');
+		}
+		else{ // otherwise save defaults
+			
+			// save default values
+			$localstorage.setObject('user', $scope.user);
+		} // if
+	});
+	
+}) // CalorieCtrl
+
 // controller for updating user settings
 .controller('UpdateCtrl', function($scope, $localstorage, $state) {
 	// variables
