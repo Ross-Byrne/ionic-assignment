@@ -2,6 +2,8 @@ Second Year Mobile Programming college project
 
 Using Ionic Version: 1.0.0-rc.4 Codename: sulfur-suricate.
 
+Continued development of the app can be found here: https://github.com/Ross-Byrne/CalorieCounter
+
 #Calorie Counter
 
 First of all - ran out of time due to bugs with ionic, so you cannot change the names of the food that is added, they are all placeholders "Bread" with 100 calories. The calories DO however work correctly, they do add on to the calories consumed.
